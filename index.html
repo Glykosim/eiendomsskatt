@@ -17,7 +17,7 @@
 		}
 	
 		button {
-		font-size: 26px;      /* Øker skriftstørrelsen */
+		font-size: 30px;      /* Øker skriftstørrelsen */
 		padding: 10px 20px;  /* Øker avstand rundt teksten (top/bottom, left/right) */
 		height: auto;        /* Lar høyden bestemmes av innholdet og padding */
 		width: auto;         /* Lar bredden bestemmes av innholdet og padding */
@@ -26,7 +26,7 @@
 		}
 		
 		input[type="text"] {
-		font-size: 26px;      /* Øker skriftstørrelsen inne i input-boksen */
+		font-size: 30px;      /* Øker skriftstørrelsen inne i input-boksen */
 		padding: 10px;       /* Øker avstanden rundt teksten inni boksen */
 		height: auto;        /* Lar høyden bestemmes av innholdet og padding */
 		width: 300px;        /* Setter en fast bredde, men du kan også bruke 'auto' */
@@ -82,12 +82,12 @@
             } else if (eiendomsskatt.toFixed(0) > 3000) {
                 document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
             } else {
-                document.getElementById("resultat").innerHTML = "<br>Eiendomsskatt: " + eiendomsskatt.toFixed(0) + " kr per måned første året og " + eiendomsskatt.toFixed(0)*2 + " kroner måneden fra andre året.";
+                document.getElementById("resultat").innerHTML = "<br>Eiendomsskatt: " + eiendomsskatt.toFixed(0) + " kr/mnd første året og " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.";
             } 
         }
     </script>
 
-    <br><br><br><hr>
+    <br><br>
 	
 	<ul style="font-size:20px;">
     <li> Beregningen er et estimat og avvik kan forekomme.
