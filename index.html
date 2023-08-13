@@ -81,20 +81,16 @@
             } else if (eiendomsskatt.toFixed(0) > 3000) {
                 document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
             } else {
-                document.getElementById("resultat").innerHTML = "<br>Resultat: " + eiendomsskatt.toFixed(0) + " kr/mnd første året og " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.";
+                document.getElementById("resultat").innerHTML = "<br><b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
             } 
         }
     </script>
-
-    <br><br>
-	
-	<ul style="font-size:20px;">
-    <li> Beregningen er et estimat og avvik kan forekomme.
-    <br><br>
-    <li> Ved husstandsinntekt under 6G (711 720 kr i 2023), kan man søke om fritak
-	<br><br>
-	<li> Utregning: Markedsverdi * 0,7 (verdirabatt) - 2 500 000 (bunnfradrag) * 0,001 (én promille, økes til to andre året) = Eiendomsskatt. 
-	</ul>
+    
+	<p style="font-size:20px;">
+    <p> Ved husstandsinntekt under 6G (711 720 kr i 2023), kan man søke om fritak
+	<br>
+	<p> Utregning: Markedsverdi * 0,7 (verdirabatt) - 2 500 000 (bunnfradrag) * 0,001 (én promille, økes til to andre året) = Eiendomsskatt. 
+	</style>
 	<hr>
 	
 	
