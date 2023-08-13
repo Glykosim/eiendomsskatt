@@ -15,16 +15,17 @@
 		ul ul ul {
 		list-style-type: square;  /* Dette endrer kulepunktet til en firkant for under-underpunkter */
 		}
-	
+		
 		button {
-		font-size: 24px;      /* Øker skriftstørrelsen */
-		padding: 10px 20px;  /* Øker avstand rundt teksten (top/bottom, left/right) */
-		height: auto;        /* Lar høyden bestemmes av innholdet og padding */
-		width: auto;         /* Lar bredden bestemmes av innholdet og padding */
-		border-radius: 5px;  /* Gjør hjørnene litt rundere */
-		cursor: pointer;     /* Endrer musepekeren til en hånd når den er over knappen */
-		}
+    font-size: 24px;      /* Øker skriftstørrelsen */
+    padding: 10px 20px;  /* Øker avstand rundt teksten (top/bottom, left/right) */
+    height: auto;        /* Lar høyden bestemmes av innholdet og padding */
+    width: auto;         /* Lar bredden bestemmes av innholdet og padding */
+    border-radius: 5px;  /* Gjør hjørnene litt rundere */
+    cursor: pointer;     /* Endrer musepekeren til en hånd når den er over knappen */
+}
 
+		
 		
     </style>
 	
@@ -52,6 +53,10 @@
     <br>
     <br>
     <button style="font-size:20px" onclick="beregnEiendomsskatt()"> Beregn eiendomsskatt</button> 
+	
+	
+	
+	
     <button style="font-size:20px" onclick="location.reload()">Nullstill</button>
     <p id="resultat"></p>
     
