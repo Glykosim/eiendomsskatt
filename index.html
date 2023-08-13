@@ -1,7 +1,112 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Her er kalkulatoren!</h1>
-<p>Nå er du straks der</p>
+<head>
+    <title>Eiendomsskattkalkulator</title>
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+		ul ul {
+		margin-left: 20px;  /* Dette gir et innrykk for underpunkter */
+		list-style-type: circle;  /* Dette endrer kulepunktet til en sirkel for underpunkter */
+		}
+
+		ul ul ul {
+		list-style-type: square;  /* Dette endrer kulepunktet til en firkant for under-underpunkter */
+		}
+		
+		
+    </style>
+	
+</head>
+
+<style>
+    #resultat {
+        font-size: 24px;
+    }
+</style>
+
+<body style="background-color:#EFEFEF;">
+    <h1><font color=black size="8"><font color=#539760>S</font><font color=#EB4040>V</font> Askøys eiendomsskattkalkulator</font></h1>
+    <label for="markedsverdi" style="color:black; font-size:24px; font-weight: bold;">Markedsverdi:</label>
+    <input type="text" 
+           id="markedsverdi" 
+           name="markedsverdi"
+           size="7"
+           maxlength="10"
+           pattern="[0-9 ]+" 
+		   style="font-size:24px;
+           title="Bare tall er tillatt" 
+           oninput="this.value = this.value.replace(/[^0-9\.,]/g, '').replace(',', '.').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');">
+    </input>
+    <br>
+    <br>
+    <button style="font-size:20px" onclick="beregnEiendomsskatt()"> Beregn eiendomsskatt</button> 
+    <button style="font-size:20px" onclick="location.reload()">Nullstill</button>
+    <p id="resultat"></p>
+    
+    <script>
+        function beregnEiendomsskatt() {
+            const markedsverdiInput = document.getElementById("markedsverdi");
+            const markedsverdi = Number(markedsverdiInput.value.replaceAll(" ", ""));
+
+            // Reduser markedsverdien med 30%
+            const justertMarkedsverdi = markedsverdi * 0.7;
+
+            // Trekker bort et grunnfradrag på 2 500 000 kroner.
+            const bunnfradrag = 2500000;
+            const eiendomsskatt = (Math.max(justertMarkedsverdi - bunnfradrag, 0) * 0.001) / 12;
+
+            if (markedsverdi < 4000000) {
+                document.getElementById("resultat").innerHTML = "For boliger med markedsverdi under 4 000 000 kr er det ikke eiendomsskatt";
+			} else if (isNaN(eiendomsskatt) || eiendomsskatt == 0) {
+                document.getElementById("resultat").innerHTML = "Kan ikke beregne eiendomsskatt. Sjekk at verdien du har oppgitt stemmer.";
+            } else if (eiendomsskatt.toFixed(0) > 3000) {
+                document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
+            } else {
+                document.getElementById("resultat").innerHTML = "<br>Eiendomsskatt: " + eiendomsskatt.toFixed(0) + " kr per måned første året og " + eiendomsskatt.toFixed(0)*2 + " kroner måneden fra andre året.";
+            } 
+        }
+    </script>
+
+    <br><br><br><hr>
+	
+	<ul style="font-size:20px;">
+    <li> Beregningen er et estimat og avvik kan forekomme.
+    <br><br>
+    <li> Ved 1 husstandsinntekt i for under 6G (711 720 kr i 2023), kan man få fritak fra eiendomsskatt
+	<br><br>
+	<li> Utregningen er: Markedsverdi * 0,7 (verdirabatt) - 2 500 000 (bunnfradrag) * 0,001 (én promille) = Eiendomsskatt. 
+	</ul>
+	<hr>
+	
+	
+	<h1><center>Hva får Askøy igjen for denne skatten?</center></h1>
+
+<ul style="font-size:24px;">
+    <li><b>Skolebygging på Erdal</b>
+	<ul>	Tiden for å bygge skolene på Erdal er overmoden. Men det er umulig uten eiendomsskatt</ul></li>
+	<br>
+	<li><b>Gratis trygghetsalarmer</b>
+	<ul>	Dette koster ca. 3 000 kroner i dag og vi vil at det skal være tilgjengelig for alle som trenger det.</ul></li>
+    <br>
+	<li><b>Økt bemanning og vedlikehold i skoler og barnehager</b>
+	<ul>	Skolene rapporterer om uro, mobbing og dårlig trivsel. Sykefraværet i barnehagene er høyt. Vi trenger flere voksne! </ul></li>
+    <br>
+	<li><b>Frikort for helsetjenester og medisiner til dem med lavest inntekt</b>
+	<ul>	Dette vil bety at også de mest utsatte har råd til medisiner og legebesøk</ul></li>
+    <br>
+	<li><b>Nedbetaling på kommunens gjeld</b>
+	<ul>	Vi bruker i dag 200 millioner kroner bare på renter.</ul></li>
+	<br>
+	<li><b>Styrking av eldreomsorgen</b>
+	<ul>	Askøy klarer ikke å ta i mot utskrivningsklare pasienter og taper millioner på dette. Kapasiteten må økes.</ul></li>
+	<br>
+	<li><b>Styrking av sosialsatsene</b>
+	<ul>	Askøyværingene er Norges syvende rikeste (etter gjennomsnittling husstandinntekt). Vi vil redusere forskjellene ved å gi mer til dem som har minst.</ul></li>
+</ul>
+	
+	
 </body>
 </html>
