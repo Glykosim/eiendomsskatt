@@ -17,12 +17,20 @@
 		}
 	
 		button {
-		font-size: 24px;      /* Øker skriftstørrelsen */
+		font-size: 26px;      /* Øker skriftstørrelsen */
 		padding: 10px 20px;  /* Øker avstand rundt teksten (top/bottom, left/right) */
 		height: auto;        /* Lar høyden bestemmes av innholdet og padding */
 		width: auto;         /* Lar bredden bestemmes av innholdet og padding */
 		border-radius: 5px;  /* Gjør hjørnene litt rundere */
 		cursor: pointer;     /* Endrer musepekeren til en hånd når den er over knappen */
+		}
+		
+		input[type="text"] {
+		font-size: 26px;      /* Øker skriftstørrelsen inne i input-boksen */
+		padding: 10px;       /* Øker avstanden rundt teksten inni boksen */
+		height: auto;        /* Lar høyden bestemmes av innholdet og padding */
+		width: 300px;        /* Setter en fast bredde, men du kan også bruke 'auto' */
+		border-radius: 5px;  /* Gjør hjørnene litt rundere */
 		}
 
 		
@@ -51,8 +59,8 @@
     </input>
     <br>
     <br>
-    <button style="font-size:20px" onclick="beregnEiendomsskatt()"> Beregn eiendomsskatt</button> 
-    <button style="font-size:20px" onclick="location.reload()">Nullstill</button>
+    <button onclick="beregnEiendomsskatt()"> Beregn eiendomsskatt</button> 
+    <button onclick="location.reload()">Nullstill</button>
     <p id="resultat"></p>
     
     <script>
@@ -84,9 +92,9 @@
 	<ul style="font-size:20px;">
     <li> Beregningen er et estimat og avvik kan forekomme.
     <br><br>
-    <li> Ved 1 husstandsinntekt i for under 6G (711 720 kr i 2023), kan man få fritak fra eiendomsskatt
+    <li> Ved husstandsinntekt under 6G (711 720 kr i 2023), kan man søke om fritak
 	<br><br>
-	<li> Utregningen er: Markedsverdi * 0,7 (verdirabatt) - 2 500 000 (bunnfradrag) * 0,001 (én promille) = Eiendomsskatt. 
+	<li> Utregning: Markedsverdi * 0,7 (verdirabatt) - 2 500 000 (bunnfradrag) * 0,001 (én promille) = Eiendomsskatt. 
 	</ul>
 	<hr>
 	
@@ -98,22 +106,22 @@
 	<ul>	Tiden for å bygge skolene på Erdal er overmoden. Men det er umulig uten eiendomsskatt</ul></li>
 	<br>
 	<li><b>Gratis trygghetsalarmer</b>
-	<ul>	Dette koster ca. 3 000 kroner i dag og vi vil at det skal være tilgjengelig for alle som trenger det.</ul></li>
+	<ul>	Dette koster ca. 3 000 kroner i leie per år dag.</ul></li>
     <br>
 	<li><b>Økt bemanning og vedlikehold i skoler og barnehager</b>
 	<ul>	Skolene rapporterer om uro, mobbing og dårlig trivsel. Sykefraværet i barnehagene er høyt. Vi trenger flere voksne! </ul></li>
     <br>
 	<li><b>Frikort for helsetjenester og medisiner til dem med lavest inntekt</b>
-	<ul>	Dette vil bety at også de mest utsatte har råd til medisiner og legebesøk</ul></li>
+	<ul>	Dette vil bety at  de mest utsatte har råd til medisiner og legebesøk</ul></li>
     <br>
 	<li><b>Nedbetaling på kommunens gjeld</b>
 	<ul>	Vi bruker i dag 200 millioner kroner bare på renter.</ul></li>
 	<br>
 	<li><b>Styrking av eldreomsorgen</b>
-	<ul>	Askøy klarer ikke å ta i mot utskrivningsklare pasienter og taper millioner på dette. Kapasiteten må økes.</ul></li>
+	<ul>	Askøy klarer ikke å ta i mot utskrivningsklare pasienter og taper millioner. Kapasiteten må økes.</ul></li>
 	<br>
 	<li><b>Styrking av sosialsatsene</b>
-	<ul>	Askøyværingene er Norges syvende rikeste (etter gjennomsnittling husstandinntekt). Vi vil redusere forskjellene ved å gi mer til dem som har minst.</ul></li>
+	<ul>	Askøyværingene er Norges syvende rikeste (etter gjennomsnittling husstandinntekt). Vi vil redusere forskjellene.</ul></li>
 </ul>
 	
 	
