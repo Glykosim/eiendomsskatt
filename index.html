@@ -42,10 +42,26 @@
     #resultat {
         font-size: 24px;
     }
+	
+	#header {
+    display: flex;
+    align-items: center; /* Dette vil vertikalt sentrere elementene i containeren */
+    gap: 5px; /* Gir en avstand på X px mellom logoen og teksten */
+	}
+
+	#sv-logo {
+    width: 150px; 
+    margin: 20px 0; /* Juster denne verdien om nødvendig */
+	}
 </style>
 
 <body style="background-color:#EFEFEF;">
-    <h1><font color=black size="8"><font color=#539760>S</font><font color=#EB4040>V</font> Askøys eiendomsskattkalkulator</font></h1>
+
+<div id="header">
+    <img src="sv-logo.png" alt="SV Logo" id="sv-logo">
+    <h1>Askøys eiendomsskattkalkulator</h1>
+</div>
+<br>
     <label for="markedsverdi" style="color:black; font-size:24px; font-weight: bold;">Markedsverdi:</label>
     <input type="text" 
            id="markedsverdi" 
