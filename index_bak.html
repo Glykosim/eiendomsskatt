@@ -53,18 +53,6 @@
     width: 150px; 
     margin: 20px 0; /* Juster denne verdien om nødvendig */
 	}
-		
-	#infoContainer {
-    opacity: 0; /* Gjør containeren usynlig til å begynne med */
-    transform: translateX(-100%); /* Flytter containeren til venstre */
-    transition: opacity 1s, transform 1s; /* Legger til overgangseffekt */
-	}
-
-	#infoContainer.visible {
-    opacity: 1; /* Gjør containeren synlig */
-    transform: translateX(0); /* Flytter containeren tilbake til opprinnelig posisjon */
-	}
-		
 </style>
 
 <body style="background-color:#EFEFEF;">
@@ -91,13 +79,6 @@
     <p id="resultat"></p>
     
     <script>
-	
-	function showInfo() {
-    const infoContainer = document.getElementById('infoContainer');
-    infoContainer.classList.add('visible'); // Gjør containeren synlig og starter animasjonen
-}
-	
-	
         function beregnEiendomsskatt() {
             const markedsverdiInput = document.getElementById("markedsverdi");
             const markedsverdi = Number(markedsverdiInput.value.replaceAll(" ", ""));
@@ -118,7 +99,6 @@
             } else {
                 document.getElementById("resultat").innerHTML = "<br><b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
             } 
-			showInfo();
         }
     </script>
     
@@ -130,10 +110,9 @@
 	</style>
 	<hr>
 	
-	<div id="infoContainer">
-    <h1>Hva får Askøy igjen for denne skatten?</h1>
 	
-	
+	<h1><center>Hva får Askøy igjen for denne skatten?</center></h1>
+
 <ul style="font-size:24px;">
     <li><b>Skolebygging på Erdal</b>
 	<ul>	Skolene på Erdal kan ikke vente. Bygging er veldig vanskelig uten eiendomsskatt.</ul></li>
@@ -156,7 +135,7 @@
 	<li><b>Styrking av sosialsatsene</b>
 	<ul>	Husholdningene i Askøy tjener på nivå med rike Bærum. SV vil redusere forskjellene mellom hos oss.</ul></li>
 </ul>
-	</div>
+	
 	
 </body>
 </html>
