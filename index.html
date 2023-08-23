@@ -71,7 +71,7 @@
             } else if (eiendomsskatt.toFixed(0) > 3000) {
                 document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
             } else {
-                document.getElementById("resultat").innerHTML = "<br><b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
+                document.getElementById("resultat").innerHTML = "<b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
             } 
 			showInfo();
         }
