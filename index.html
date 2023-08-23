@@ -36,10 +36,6 @@
 		<!-- Google tag (gtag.js) -->
     </style>
 
-
-	
-</head>
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6XZL634Q2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -48,6 +44,42 @@
 
   gtag('config', 'G-M6XZL634Q2');
 </script>
+
+    <script>
+	
+	function showInfo() {
+    const infoContainer = document.getElementById('infoContainer');
+    infoContainer.classList.add('visible'); // Gjør containeren synlig og starter animasjonen
+}
+	
+	
+        function beregnEiendomsskatt() {
+            const markedsverdiInput = document.getElementById("markedsverdi");
+            const markedsverdi = Number(markedsverdiInput.value.replaceAll(" ", ""));
+
+            // Reduser markedsverdien med 30%
+            const justertMarkedsverdi = markedsverdi * 0.7;
+
+            // Trekker bort et grunnfradrag på 2 500 000 kroner.
+            const bunnfradrag = 2500000;
+            const eiendomsskatt = (Math.max(justertMarkedsverdi - bunnfradrag, 0) * 0.001) / 12;
+
+            if (markedsverdi < 4000000) {
+                document.getElementById("resultat").innerHTML = "For boliger med markedsverdi under 4 000 000 kr er det ikke eiendomsskatt";
+			} else if (isNaN(eiendomsskatt) || eiendomsskatt == 0) {
+                document.getElementById("resultat").innerHTML = "Kan ikke beregne eiendomsskatt. Sjekk at verdien du har oppgitt stemmer.";
+            } else if (eiendomsskatt.toFixed(0) > 3000) {
+                document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
+            } else {
+                document.getElementById("resultat").innerHTML = "<br><b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
+            } 
+			showInfo();
+        }
+    </script>
+	
+</head>
+
+
 
 
 <style>
@@ -102,37 +134,7 @@
     <button onclick="location.reload()">Nullstill</button>
     <p id="resultat"></p>
     
-    <script>
-	
-	function showInfo() {
-    const infoContainer = document.getElementById('infoContainer');
-    infoContainer.classList.add('visible'); // Gjør containeren synlig og starter animasjonen
-}
-	
-	
-        function beregnEiendomsskatt() {
-            const markedsverdiInput = document.getElementById("markedsverdi");
-            const markedsverdi = Number(markedsverdiInput.value.replaceAll(" ", ""));
 
-            // Reduser markedsverdien med 30%
-            const justertMarkedsverdi = markedsverdi * 0.7;
-
-            // Trekker bort et grunnfradrag på 2 500 000 kroner.
-            const bunnfradrag = 2500000;
-            const eiendomsskatt = (Math.max(justertMarkedsverdi - bunnfradrag, 0) * 0.001) / 12;
-
-            if (markedsverdi < 4000000) {
-                document.getElementById("resultat").innerHTML = "For boliger med markedsverdi under 4 000 000 kr er det ikke eiendomsskatt";
-			} else if (isNaN(eiendomsskatt) || eiendomsskatt == 0) {
-                document.getElementById("resultat").innerHTML = "Kan ikke beregne eiendomsskatt. Sjekk at verdien du har oppgitt stemmer.";
-            } else if (eiendomsskatt.toFixed(0) > 3000) {
-                document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
-            } else {
-                document.getElementById("resultat").innerHTML = "<br><b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
-            } 
-			showInfo();
-        }
-    </script>
     
 	<hr>
 	<p style="font-size:22px;">
