@@ -43,8 +43,12 @@
 
 <style>
     #resultat {
-        font-size: 24px;
-    }
+    font-size: 24px;
+    background-color: #EFEFEF; /* Lysblå bakgrunnsfarge */
+    padding: 15px;             /* Legger til litt padding rundt teksten for estetikk */
+    border-radius: 5px;       /* Gjør hjørnene litt rundere */
+    margin-top: 20px;         /* Gir litt avstand fra knappene ovenfor */
+	}
 	
 	#header {
     display: flex;
@@ -168,12 +172,16 @@
 
             if (markedsverdi < 4000000) {
                 document.getElementById("resultat").innerHTML = "For boliger med markedsverdi under 4 000 000 kr er det ikke eiendomsskatt";
+				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
 			} else if (isNaN(eiendomsskatt) || eiendomsskatt == 0) {
                 document.getElementById("resultat").innerHTML = "Kan ikke beregne eiendomsskatt. Sjekk at verdien du har oppgitt stemmer.";
+				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
             } else if (eiendomsskatt.toFixed(0) > 3000) {
-                document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
+                document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
+				document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
             } else {
-                document.getElementById("resultat").innerHTML = "<b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
+                document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
+				document.getElementById("resultat").innerHTML = "<b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
             } 
 			showInfo();
         }
@@ -192,6 +200,7 @@
 				document.getElementById("markedsverdi").value = "";
                 document.querySelector("button[onclick='beregnEiendomsskatt()']").disabled = true;
 				document.getElementById("resultat").innerHTML = "<b>Resultat</b><li>Med husstandsinntekt under 6G, bør du søke om fritak.";
+				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
 				showInfo();
 				
             } else {
