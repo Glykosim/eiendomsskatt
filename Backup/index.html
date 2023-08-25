@@ -81,7 +81,7 @@
 <body style="background-color:#EFEFEF;">
 
 <div id="header">
-    <img src="" alt="SV Logo" id="sv-logo">
+    <img src="Askøy_sv_gjennomsiktig.png" alt="SV Logo" id="sv-logo">
     <h1>Eiendomsskattkalkulator</h1>
 </div>
 <br>
@@ -142,7 +142,6 @@
 
 
 
-<script src="config.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6XZL634Q2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -152,18 +151,10 @@
   gtag('config', 'G-M6XZL634Q2');
 </script>
 
-
-
     <script>
-	   window.onload = function() {
-        document.getElementById("sv-logo").src = BILDE_NAVN;
-    }
-	</script>
 	
-	<script>	
 	function showInfo() {
     const infoContainer = document.getElementById('infoContainer');
-	infoContainer.innerHTML = INFO_TEXT;
     infoContainer.classList.add('visible'); // Gjør containeren synlig og starter animasjonen
 }
 	
@@ -173,11 +164,11 @@
             const markedsverdi = Number(markedsverdiInput.value.replaceAll(" ", ""));
 
             // Reduser markedsverdien med 30%
-            const justertMarkedsverdi = markedsverdi * VERDIRABATT;
+            const justertMarkedsverdi = markedsverdi * 0.7;
 
             // Trekker bort et grunnfradrag på 2 500 000 kroner.
             const bunnfradrag = 2500000;
-            const eiendomsskatt = (Math.max(justertMarkedsverdi - BUNNFRADRAG, 0) * 0.001) / 12;
+            const eiendomsskatt = (Math.max(justertMarkedsverdi - bunnfradrag, 0) * 0.001) / 12;
 
             if (markedsverdi < 4000000) {
                 document.getElementById("resultat").innerHTML = "For boliger med markedsverdi under 4 000 000 kr er det ikke eiendomsskatt";
