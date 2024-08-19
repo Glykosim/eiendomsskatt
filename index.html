@@ -175,9 +175,9 @@
             // Reduser markedsverdien med 30%
             const justertMarkedsverdi = markedsverdi * VERDIRABATT;
 
-            // Trekker bort et grunnfradrag på 2 500 000 kroner.
+            // Trekker bort et grunnfradrag på 2 000 000 kroner.
             const bunnfradrag = 2000000;
-            const eiendomsskatt = (Math.max(justertMarkedsverdi - BUNNFRADRAG, 0) * 0.001) / 12;
+            const eiendomsskatt = (Math.max(justertMarkedsverdi - bunnfradrag, 0) * 0.001) / 12;
 
             if (markedsverdi < 4000000) {
                 document.getElementById("resultat").innerHTML = "For boliger med markedsverdi under 4 000 000 kr er det ikke eiendomsskatt";
