@@ -108,7 +108,7 @@
     
 	<hr>
 	<p style="font-size:22px;">
-	<p> Utregning: Markedsverdi * 0,7 (verdirabatt) - 2 500 000 (bunnfradrag) * 0,001 (én promille, økes til to andre året) = Eiendomsskatt. 
+	<p> Utregning: Markedsverdi * 0,7 (verdirabatt) - 2 000 000 (bunnfradrag) * 0,001 (én promille, økes til to andre året) = Eiendomsskatt. 
 	</style>
 	<hr>
 	
@@ -176,7 +176,7 @@
             const justertMarkedsverdi = markedsverdi * VERDIRABATT;
 
             // Trekker bort et grunnfradrag på 2 500 000 kroner.
-            const bunnfradrag = 2500000;
+            const bunnfradrag = 2000000;
             const eiendomsskatt = (Math.max(justertMarkedsverdi - BUNNFRADRAG, 0) * 0.001) / 12;
 
             if (markedsverdi < 4000000) {
