@@ -14,10 +14,15 @@
             padding: 10px;
             border: 1px solid #ccc;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
     <h1>Eiendomsskatt Kalkulator</h1>
+    <img src="ditt-bilde.jpg" alt="Illustrasjon av eiendomsskatt" />
     <label for="markedsverdi" style="font-size:20px;">Markedsverdi på boligen (i kroner):</label>
     <input 
         type="text" 
@@ -30,8 +35,17 @@
     <button onclick="location.reload()">Nullstill</button>
     <p id="resultat"></p>
     <hr>
+    <h2>Forklaring av modellen</h2>
     <p style="font-size:22px;">
-        Utregning: (Markedsverdi * 0,7 (verdirabatt) - 500 000 (bunnfradrag)) * aktuell promille = Eiendomsskatt.
+        Utregning: (Markedsverdi * 0,7 (verdirabatt) - 500 000 (bunnfradrag)) * eiendomsskattesats = Eiendomsskatt.
+    </p>
+    <p style="font-size:22px;">
+        Eiendomsskattesatser:
+        <ul>
+            <li>1 promille første året.</li>
+            <li>2 promille andre året (2024).</li>
+            <li>2,8 promille tredje året og fremover (fra 2025).</li>
+        </ul>
     </p>
     <hr>
 
@@ -52,20 +66,24 @@
             const justertMarkedsverdi = markedsverdi * VERDIRABATT;
             const nettoVerdi = Math.max(justertMarkedsverdi - BUNNFRADRAG, 0);
 
-            // Bestem promillen basert på året
-            let promille = 0.001; // 1 promille første året
-            const år = new Date().getFullYear(); // Juster basert på aktuelt år
+            // Bestem eiendomsskattesats basert på året
+            let sats = 0.001; // 1 promille første året
+            const år = new Date().getFullYear(); // Hent gjeldende år
+            let satsBeskrivelse = "1 promille";
             if (år === 2024) {
-                promille = 0.002; // 2 promille andre året
+                sats = 0.002; // 2 promille i 2024
+                satsBeskrivelse = "2 promille";
             } else if (år >= 2025) {
-                promille = 0.0028; // 2,8 promille tredje året og fremover
+                sats = 0.0028; // 2,8 promille fra 2025
+                satsBeskrivelse = "2,8 promille";
             }
 
-            const eiendomsskatt = nettoVerdi * promille;
+            const eiendomsskatt = nettoVerdi * sats;
 
             if (eiendomsskatt > 0) {
                 document.getElementById("resultat").innerHTML = 
-                    `Eiendomsskatten for boligen er <b>${eiendomsskatt.toFixed(2)} kr</b> basert på en promille på ${promille * 1000}.`;
+                    `Eiendomsskatten for boligen er <b>${eiendomsskatt.toFixed(2)} kr</b>, basert på en sats på <b>${satsBeskrivelse}</b>. 
+                    <br> Beregningen er gjort med en nettoverdi av <b>${nettoVerdi.toFixed(2)} kr</b> etter bunnfradrag.`;
                 document.getElementById("resultat").style.backgroundColor = "#DFF2BF";
             } else {
                 document.getElementById("resultat").innerHTML = 
