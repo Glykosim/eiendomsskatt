@@ -95,8 +95,11 @@
 		   title="Bare tall er tillatt" 
            oninput="this.value = this.value.replace(/[^0-9\.,]/g, '').replace(',', '.').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');">
     </input>
-    
-	
+    <br>
+    <br>
+	<input type="checkbox" id="inntektCheckbox">
+	<label for="inntektCheckbox" style="color:black; font-size:24px;">Brutto husstandsinntekt er under 711 720 kr (6 ganger grunnbeløpet i Folketrygden)</label>
+	<br><br>
 	<button onclick="beregnEiendomsskatt()"> Beregn eiendomsskatt</button> 
     <button onclick="location.reload()">Nullstill</button>
     <p id="resultat"></p>
@@ -105,7 +108,7 @@
     
 	<hr>
 	<p style="font-size:22px;">
-	<p> Utregning: Markedsverdi * 0,7 (verdirabatt) - 500 000 (bunnfradrag) * 0,001 (én promille, økes til to andre året) = Eiendomsskatt. 
+	<p> Utregning: Markedsverdi * 0,7 (verdirabatt) - 2 000 000 (bunnfradrag) * 0,001 (én promille, økes til to andre året) = Eiendomsskatt. 
 	</style>
 	<hr>
 <!--
@@ -174,11 +177,14 @@
             // Reduser markedsverdien med 30%
             const justertMarkedsverdi = markedsverdi * VERDIRABATT;
 
-            // Trekker bort et grunnfradrag på 5 000 000 kroner.
-            const bunnfradrag = 500000;
+            // Trekker bort et grunnfradrag på 2 000 000 kroner.
+            const bunnfradrag = 2000000;
             const eiendomsskatt = (Math.max(justertMarkedsverdi - bunnfradrag, 0) * 0.001) / 12;
 
-            if (isNaN(eiendomsskatt) || eiendomsskatt == 0) {
+            if (markedsverdi < 4000000) {
+                document.getElementById("resultat").innerHTML = "For boliger med markedsverdi under 4 000 000 kr er det ikke eiendomsskatt";
+				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
+			} else if (isNaN(eiendomsskatt) || eiendomsskatt == 0) {
                 document.getElementById("resultat").innerHTML = "Kan ikke beregne eiendomsskatt. Sjekk at verdien du har oppgitt stemmer.";
 				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
             } else if (eiendomsskatt.toFixed(0) > 3000) {
@@ -204,6 +210,7 @@
                 document.getElementById("markedsverdi").disabled = true;
 				document.getElementById("markedsverdi").value = "";
                 document.querySelector("button[onclick='beregnEiendomsskatt()']").disabled = true;
+				document.getElementById("resultat").innerHTML = "<b>Resultat</b><li>Med husstandsinntekt under 6G, bør du søke om fritak. Alle med husstandsinntekt under 6G vil få innvilget fritak.";
 				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
 				showInfo();
 				
