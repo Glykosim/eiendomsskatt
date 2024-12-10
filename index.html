@@ -1,226 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Eiendomsskattkalkulator</title>
-	<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eiendomsskatt Kalkulator</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
         }
-
-		ul ul {
-		margin-left: 20px;  /* Dette gir et innrykk for underpunkter */
-		list-style-type: circle;  /* Dette endrer kulepunktet til en sirkel for underpunkter */
-		}
-
-		ul ul ul {
-		list-style-type: square;  /* Dette endrer kulepunktet til en firkant for under-underpunkter */
-		}
-	
-		button {
-		font-size: 30px;      /* Øker skriftstørrelsen */
-		padding: 10px 20px;  /* Øker avstand rundt teksten (top/bottom, left/right) */
-		height: auto;        /* Lar høyden bestemmes av innholdet og padding */
-		width: auto;         /* Lar bredden bestemmes av innholdet og padding */
-		border-radius: 5px;  /* Gjør hjørnene litt rundere */
-		cursor: pointer;     /* Endrer musepekeren til en hånd når den er over knappen */
-		}
-		
-		input[type="text"] {
-		font-size: 30px;      /* Øker skriftstørrelsen inne i input-boksen */
-		padding: 10px;       /* Øker avstanden rundt teksten inni boksen */
-		height: auto;        /* Lar høyden bestemmes av innholdet og padding */
-		width: 290px;        /* Setter en fast bredde, men du kan også bruke 'auto' */
-		border-radius: 5px;  /* Gjør hjørnene litt rundere */
-		}
-
-		<!-- Google tag (gtag.js) -->
+        #resultat {
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
     </style>
-	
 </head>
-
-
-
-
-<style>
-    #resultat {
-    font-size: 24px;
-    background-color: #EFEFEF; /* Lysblå bakgrunnsfarge */
-    padding: 15px;             /* Legger til litt padding rundt teksten for estetikk */
-    border-radius: 5px;       /* Gjør hjørnene litt rundere */
-    margin-top: 20px;         /* Gir litt avstand fra knappene ovenfor */
-	}
-	
-	#header {
-    display: flex;
-    align-items: center; /* Dette vil vertikalt sentrere elementene i containeren */
-    gap: 5px; /* Gir en avstand på X px mellom logoen og teksten */
-	}
-
-	#sv-logo {
-    width: 150px; 
-    margin: 10px 0; /* Juster denne verdien om nødvendig */
-	}
-		
-	#infoContainer {
-    opacity: 0; /* Gjør containeren usynlig til å begynne med */
-    transform: translateX(-100%); /* Flytter containeren til venstre */
-    transition: opacity 1s, transform 1s; /* Legger til overgangseffekt */
-	}
-
-	#infoContainer.visible {
-    opacity: 1; /* Gjør containeren synlig */
-    transform: translateX(0); /* Flytter containeren tilbake til opprinnelig posisjon */
-	}
-	
-	#inntektCheckbox {
-    transform: scale(1.5);  /* Øker størrelsen med 50% */
-}
-		
-</style>
-
-<body style="background-color:#EFEFEF;">
-
-<div id="header">
-    <img src="" alt="SV Logo" id="sv-logo">
-    <h1>Eiendomsskattkalkulator</h1>
-</div>
-<br>
-    <label for="markedsverdi" style="color:black; font-size:24px; font-weight: bold;">Markedsverdi:</label>
-    <input type="text" 
-           id="markedsverdi" 
-           name="markedsverdi"
-           size="7"
-           maxlength="10"
-           pattern="[0-9 ]+" 
-		   title="Bare tall er tillatt" 
-           oninput="this.value = this.value.replace(/[^0-9\.,]/g, '').replace(',', '.').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');">
+<body>
+    <h1>Eiendomsskatt Kalkulator</h1>
+    <label for="markedsverdi" style="font-size:20px;">Markedsverdi på boligen (i kroner):</label>
+    <input 
+        type="text" 
+        id="markedsverdi" 
+        title="Bare tall er tillatt" 
+        oninput="this.value = this.value.replace(/[^0-9\.,]/g, '').replace(',', '.').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');">
     </input>
-    
-	
-	<button onclick="beregnEiendomsskatt()"> Beregn eiendomsskatt</button> 
+    <br><br>
+    <button onclick="beregnEiendomsskatt()">Beregn eiendomsskatt</button>
     <button onclick="location.reload()">Nullstill</button>
     <p id="resultat"></p>
-    
-
-    
-	<hr>
-	<p style="font-size:22px;">
-	<p> Utregning: Markedsverdi * 0,7 (verdirabatt) - 500 000 (bunnfradrag) * 0,001 (én promille, økes til to andre året) = Eiendomsskatt. 
-	</style>
-	<hr>
-<!--
-	
-	<div id="infoContainer">
-    <h1>Hva får Askøy igjen for denne skatten?</h1>
-	
-	
-<ul style="font-size:24px;">
-    <li><b>Skolebygging på Erdal</b>
-	<ul>	Skolene på Erdal kan ikke vente. Bygging er veldig vanskelig uten eiendomsskatt.</ul></li>
-	<br>
-	<li><b>Gratis trygghetsalarmer</b>
-	<ul>	Dette koster ca. 3 000 kroner i leie per år. Trygghet skal ikke koste.</ul></li>
-    <br>
-	<li><b>Økt bemanning og vedlikehold i skoler og barnehager</b>
-	<ul>	Skolene rapporterer om uro, mobbing og dårlig trivsel. Sykefraværet i barnehagene er høyt. Vi trenger flere voksne! </ul></li>
-    <br>
-	<li><b>Frikort for helsetjenester og medisiner til dem med lavest inntekt</b>
-	<ul>	Dette vil bety at alle vil ha råd til medisiner og legebesøk.</ul></li>
-    <br>
-	<li><b>Nedbetaling på kommunens gjeld</b>
-	<ul>	Vi bruker i dag 200 millioner kroner på å betjene gjeld! Dette er altfor mye.</ul></li>
-	<br>
-	<li><b>Styrking av eldreomsorgen</b>
-	<ul>	Askøy klarer ikke å ta i mot utskrivningsklare pasienter og det koster millioner. Kapasiteten må bygges ut og det løses ved eiendomsskatt.</ul></li>
-	<br>
-	<li><b>Styrking av sosialsatsene</b>
-	<ul>	Husholdningene i Askøy tjener på nivå med rike Bærum. SV vil redusere forskjellene mellom hos oss.</ul></li>
-</ul>
-	</div>
-
--->
-
-
-<script src="config.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6XZL634Q2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-M6XZL634Q2');
-</script>
-
-
+    <hr>
+    <p style="font-size:22px;">
+        Utregning: (Markedsverdi * 0,7 (verdirabatt) - 500 000 (bunnfradrag)) * aktuell promille = Eiendomsskatt.
+    </p>
+    <hr>
 
     <script>
-	   window.onload = function() {
-        document.getElementById("sv-logo").src = BILDE_NAVN;
-    }
-	</script>
-	
-	<script>	
-	function showInfo() {
-    const infoContainer = document.getElementById('infoContainer');
-	infoContainer.innerHTML = INFO_TEXT;
-    infoContainer.classList.add('visible'); // Gjør containeren synlig og starter animasjonen
-}
-	
-	
-    function beregnEiendomsskatt() {
-            const markedsverdiInput = document.getElementById("markedsverdi");
-            const markedsverdi = Number(markedsverdiInput.value.replaceAll(" ", ""));
+        const VERDIRABATT = 0.7; // 30% verdirabatt
+        const BUNNFRADRAG = 500000; // Bunnfradrag på 500 000 kroner
 
-            // Reduser markedsverdien med 30%
-            const justertMarkedsverdi = markedsverdi * VERDIRABATT;
+        function beregnEiendomsskatt() {
+            const markedsverdiInput = document.getElementById("markedsverdi").value.replace(/ /g, '');
+            const markedsverdi = parseFloat(markedsverdiInput);
 
-            // Trekker bort et grunnfradrag på 5 000 000 kroner.
-            const bunnfradrag = 500000;
-            const eiendomsskatt = (Math.max(justertMarkedsverdi - bunnfradrag, 0) * 0.001) / 12;
-
-            if (isNaN(eiendomsskatt) || eiendomsskatt == 0) {
-                document.getElementById("resultat").innerHTML = "Kan ikke beregne eiendomsskatt. Sjekk at verdien du har oppgitt stemmer.";
-				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
-            } else if (eiendomsskatt.toFixed(0) > 3000) {
+            if (isNaN(markedsverdi) || markedsverdi <= 0) {
+                document.getElementById("resultat").innerHTML = "Vennligst oppgi en gyldig markedsverdi.";
                 document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
-				document.getElementById("resultat").innerHTML = '<span style="font-size:22px">Eiendomsskatt per måned er beregnet til </span>' + eiendomsskatt.toFixed(0) + " kr";
-            } else {
-                document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
-				document.getElementById("resultat").innerHTML = "<b>Resultat</b> (dette er et estimat og avvik kan forekomme)<li>" + eiendomsskatt.toFixed(0) + " kr/mnd første året</li><li> " + eiendomsskatt.toFixed(0)*2 + " kr/mnd fra andre året.</li>";
-            } 
-			showInfo();
-        }
-    
-	
- function nullstillKalkulator() {
-            document.getElementById("markedsverdi").value = "";
-            document.getElementById("resultat").innerHTML = "";
-            document.getElementById("inntektCheckbox").checked = false;
-            aktiverFelt();
-        }
-	
-		document.getElementById("inntektCheckbox").addEventListener("change", function () {
-            if (this.checked) {
-                document.getElementById("markedsverdi").disabled = true;
-				document.getElementById("markedsverdi").value = "";
-                document.querySelector("button[onclick='beregnEiendomsskatt()']").disabled = true;
-				document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
-				showInfo();
-				
-            } else {
-				location.reload();
+                return;
             }
-        });
 
-        function aktiverFelt() {
-            document.getElementById("markedsverdi").disabled = false;
-            document.querySelector("button[onclick='beregnEiendomsskatt()']").disabled = false;
-			document.getElementById("resultat").innerHTML = "";
+            const justertMarkedsverdi = markedsverdi * VERDIRABATT;
+            const nettoVerdi = Math.max(justertMarkedsverdi - BUNNFRADRAG, 0);
+
+            // Bestem promillen basert på året
+            let promille = 0.001; // 1 promille første året
+            const år = new Date().getFullYear(); // Juster basert på aktuelt år
+            if (år === 2024) {
+                promille = 0.002; // 2 promille andre året
+            } else if (år >= 2025) {
+                promille = 0.0028; // 2,8 promille tredje året og fremover
+            }
+
+            const eiendomsskatt = nettoVerdi * promille;
+
+            if (eiendomsskatt > 0) {
+                document.getElementById("resultat").innerHTML = 
+                    `Eiendomsskatten for boligen er <b>${eiendomsskatt.toFixed(2)} kr</b> basert på en promille på ${promille * 1000}.`;
+                document.getElementById("resultat").style.backgroundColor = "#DFF2BF";
+            } else {
+                document.getElementById("resultat").innerHTML = 
+                    "Ingen eiendomsskatt gjelder for denne boligen.";
+                document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
+            }
         }
-	
-	</script>
-
-
-	
+    </script>
 </body>
 </html>
