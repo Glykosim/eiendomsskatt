@@ -3,94 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eiendomsskatt Kalkulator</title>
+    <title>Oppdatering</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            background-color: #f4f4f4;
         }
-        #resultat {
-            font-size: 20px;
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
         }
-        img {
-            max-width: 100%;
-            height: auto;
+        p {
+            font-size: 1.5rem;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <h1>Eiendomsskatt Kalkulator</h1>
-    <img src="ditt-bilde.jpg" alt="Illustrasjon av eiendomsskatt" />
-    <label for="markedsverdi" style="font-size:20px;">Markedsverdi på boligen (i kroner):</label>
-    <input 
-        type="text" 
-        id="markedsverdi" 
-        title="Bare tall er tillatt" 
-        oninput="this.value = this.value.replace(/[^0-9\.,]/g, '').replace(',', '.').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');">
-    </input>
-    <br><br>
-    <button onclick="beregnEiendomsskatt()">Beregn eiendomsskatt</button>
-    <button onclick="location.reload()">Nullstill</button>
-    <p id="resultat"></p>
-    <hr>
-    <h2>Forklaring av modellen</h2>
-    <p style="font-size:22px;">
-        Utregning: (Markedsverdi * 0,7 (verdirabatt) - 500 000 (bunnfradrag)) * eiendomsskattesats = Eiendomsskatt.
-    </p>
-    <p style="font-size:22px;">
-        Eiendomsskattesatser:
-        <ul>
-            <li>1 promille første året.</li>
-            <li>2 promille andre året (2024).</li>
-            <li>2,8 promille tredje året og fremover (fra 2025).</li>
-        </ul>
-    </p>
-    <hr>
-
-    <script>
-        const VERDIRABATT = 0.7; // 30% verdirabatt
-        const BUNNFRADRAG = 500000; // Bunnfradrag på 500 000 kroner
-
-        function beregnEiendomsskatt() {
-            const markedsverdiInput = document.getElementById("markedsverdi").value.replace(/ /g, '');
-            const markedsverdi = parseFloat(markedsverdiInput);
-
-            if (isNaN(markedsverdi) || markedsverdi <= 0) {
-                document.getElementById("resultat").innerHTML = "Vennligst oppgi en gyldig markedsverdi.";
-                document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
-                return;
-            }
-
-            const justertMarkedsverdi = markedsverdi * VERDIRABATT;
-            const nettoVerdi = Math.max(justertMarkedsverdi - BUNNFRADRAG, 0);
-
-            // Bestem eiendomsskattesats basert på året
-            let sats = 0.001; // 1 promille første året
-            const år = new Date().getFullYear(); // Hent gjeldende år
-            let satsBeskrivelse = "1 promille";
-            if (år === 2024) {
-                sats = 0.002; // 2 promille i 2024
-                satsBeskrivelse = "2 promille";
-            } else if (år >= 2025) {
-                sats = 0.0028; // 2,8 promille fra 2025
-                satsBeskrivelse = "2,8 promille";
-            }
-
-            const eiendomsskatt = nettoVerdi * sats;
-
-            if (eiendomsskatt > 0) {
-                document.getElementById("resultat").innerHTML = 
-                    `Eiendomsskatten for boligen er <b>${eiendomsskatt.toFixed(2)} kr</b>, basert på en sats på <b>${satsBeskrivelse}</b>. 
-                    <br> Beregningen er gjort med en nettoverdi av <b>${nettoVerdi.toFixed(2)} kr</b> etter bunnfradrag.`;
-                document.getElementById("resultat").style.backgroundColor = "#DFF2BF";
-            } else {
-                document.getElementById("resultat").innerHTML = 
-                    "Ingen eiendomsskatt gjelder for denne boligen.";
-                document.getElementById("resultat").style.backgroundColor = "#F2EBDD";
-            }
-        }
-    </script>
+    <h1>Siden er under oppdatering!</h1>
+    <p>Neste planlagte oppdatering er like etter at budsejettet for kommunen er vedtatt 12. desember 2024.</p>
 </body>
 </html>
