@@ -1,28 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oppdatering</title>
+    <title>Eiendomsskattkalkulator for Askøy</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 750px; /* Økt bredde med 25% */
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        input[type="text"]:invalid {
+            border-color: red;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 220px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .comparison {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .model {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .model h3 {
+            margin: 0 0 5px 0; /* Redusert avstand mellom overskrift og ramme */
+        }
+        .model hr {
+            margin: 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        .model h4 {
+            margin-top: 5px;
+            font-weight: normal; /* Fjernet fet skrift for partinavn */
+        }
+        .difference {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .difference-note {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f8ff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+        .link-container {
+            margin-top: 10px;
+        }
+        .link-container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
             text-align: center;
-            margin-top: 20%;
-            background-color: #f4f4f4;
         }
-        h1 {
-            font-size: 2.5rem;
-            color: #333;
-        }
-        p {
-            font-size: 1.5rem;
-            color: #555;
+        th {
+            background-color: #f4f4f9;
         }
     </style>
 </head>
 <body>
-    <h1>Siden er under oppdatering!</h1>
-    <p>Neste planlagte oppdatering er like etter at budsjettet for kommunen er vedtatt 12. desember 2024.</p>
+    <div class="container">
+        <h1>Eiendomsskattkalkulator for Askøy</h1>
+        <label for="propertyValue">Markedsverdi</label>
+        <input id="propertyValue" type="text" placeholder="Skriv inn verdi" pattern="\d*" required />
+        <div class="link-container">
+            <a href="https://www.skatteetaten.no/person/skatt/hjelp-til-riktig-skatt/bolig-og-eiendeler/bolig-eiendom-tomt/formuesverdi/boligverdikalkulator/" target="_blank">Klikk her for å få et estimat på markedsverdi om du er usikker</a>
+        </div>
+        <div class="button-container">
+            <button onclick="calculateTax()">Beregn eiendomsskatt</button>
+            <button id="resetButton" onclick="resetForm()" style="display: none;">Nullstill skjema</button>
+        </div>
+
+        <div class="result comparison" id="result" style="display: none;"></div>
+
+        <div class="difference-note" id="frpNote">
+            <strong>FrP kunne avgjøre hvilken modell som ble innført. De valgte å ikke delta i stemmegivningen.</strong>
+        </div>
+
+        <div class="difference" id="difference" style="display: none;"></div>
+
+        <div class="disclaimer" style="margin-top: 20px; font-size: 0.85rem; color: gray; font-style: italic;">
+            Eiendomsskatt per år = (markedsverdi × 0,7 − bunnfradrag) × promillesats. <br>
+            Kalkulatoren gir et estimat for eiendomsskatten. Mindre avvik og feil kan forekomme.<br>
+            Utviklet av Arild Iversen.
+        </div>
+    </div>
+    <script>
+        const formatWithThousandsSeparator = (value) => {
+            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        };
+
+        const calculateDifference = (promille1, promille2, taxBase1, taxBase2) => {
+            let totalDifference = 0;
+            for (const year in promille1) {
+                const tax1 = Math.floor((taxBase1 * promille1[year]) / 12) * 12;
+                const tax2 = Math.floor((taxBase2 * promille2[year]) / 12) * 12;
+                totalDifference += tax1 - tax2;
+            }
+            return totalDifference;
+        };
+
+        const generateTable = (taxBase, promille, bunnfradrag) => {
+            let table = '<table><tr><th>År</th><th>Per måned</th><th>Promille</th></tr>';
+            for (const year in promille) {
+                const yearlyTax = Math.floor(taxBase * promille[year]);
+                const monthlyTax = Math.floor(yearlyTax / 12);
+                table += `<tr><td>${year}</td><td>${formatWithThousandsSeparator(monthlyTax)} kr</td><td>${(promille[year] * 1000).toFixed(1)} ‰</td></tr>`;
+            }
+            table += '</table>';
+            table += `<p><strong>Bunnfradrag:</strong> ${formatWithThousandsSeparator(bunnfradrag)} kr</p>`;
+            return table;
+        };
+
+        const calculateTax = () => {
+            const input = document.getElementById('propertyValue');
+            const resultDiv = document.getElementById('result');
+            const differenceDiv = document.getElementById('difference');
+            const frpNote = document.getElementById('frpNote');
+            const resetButton = document.getElementById('resetButton');
+
+            let value = input.value.replace(/\s+/g, ''); // Fjern tusenskille
+            value = parseInt(value, 10);
+
+            if (isNaN(value) || value < 800000 || value > 25000000) {
+                alert('Beløpet må være mellom 800 000 og 25 000 000. Vennligst skriv inn på nytt.');
+                return;
+            }
+
+            // Modell 1
+            const bunnfradrag1 = 400000;
+            const promille1 = { 2025: 0.001, 2026: 0.002, 2027: 0.003, 2028: 0.003 };
+            const taxBase1 = Math.max(0, Math.floor(value * 0.7 - bunnfradrag1));
+            let output1 = '<div class="model"><h3>Modell støttet av:</h3><hr><h4>Høyre<br>Industri- og Næringspartiet<br>Pensjonistpartiet<br>Kristelig Folkeparti<br>Venstre<br>Senterpartiet</h4>';
+            output1 += generateTable(taxBase1, promille1, bunnfradrag1);
+            output1 += '</div>';
+
+            // Modell 2
+            const bunnfradrag2 = 500000;
+            const promille2 = { 2025: 0.001, 2026: 0.002, 2027: 0.0028, 2028: 0.0028 };
+            const taxBase2 = Math.max(0, Math.floor(value * 0.7 - bunnfradrag2));
+            let output2 = '<div class="model"><h3>Modell støttet av:</h3><hr><h4>Arbeiderpartiet<br>Sosialistisk Venstreparti<br>Askøylisten<br>Miljøpartiet De Grønne<br><br><br></h4>';
+            output2 += generateTable(taxBase2, promille2, bunnfradrag2);
+            output2 += '</div>';
+
+            // Vis resultater
+            resultDiv.innerHTML = output1 + output2;
+            resultDiv.style.display = 'flex';
+
+            // Vis FrP-notat
+            frpNote.style.display = 'block';
+
+            // Beregn differansen
+            const difference = calculateDifference(promille1, promille2, taxBase1, taxBase2);
+            differenceDiv.style.display = 'block';
+            differenceDiv.innerHTML = `<strong>Forskjell:</strong> ${formatWithThousandsSeparator(difference)} kr over fire år (AP, SV, AL og MDG har lavest skattenivå).`;
+
+            resetButton.style.display = 'block';
+        };
+
+        const resetForm = () => {
+            document.getElementById('propertyValue').value = '';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('difference').style.display = 'none';
+            document.getElementById('frpNote').style.display = 'none';
+            document.getElementById('resetButton').style.display = 'none';
+        };
+
+        document.getElementById('propertyValue').addEventListener('input', (e) => {
+            e.target.value = formatWithThousandsSeparator(e.target.value.replace(/\D/g, '')); // Tillat kun siffer med tusenskille
+        });
+    </script>
 </body>
 </html>
