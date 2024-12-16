@@ -138,7 +138,7 @@
 <body>
     <div class="container">
         <h1>Eiendomsskattkalkulator for Askøy</h1>
-        <label for="propertyValue">Markedsverdi</label>
+        <label for="propertyValue">Skatteetatens antatte markedsverdi</label>
         <div class="button-container">
             <input id="propertyValue" type="text" placeholder="Skriv inn verdi" pattern="\d*" required oninput="this.value = formatWithThousandsSeparator(this.value.replace(/\D/g, ''))" />
             <button onclick="calculateTax()">Beregn eiendomsskatt</button>
